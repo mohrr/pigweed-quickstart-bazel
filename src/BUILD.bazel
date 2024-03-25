@@ -23,9 +23,9 @@ cc_binary(
         "//conditions:default": "@bazel_tools//tools/cpp:malloc",
     }),
     deps = [
+        "@pigweed//pw_assert:backend_impl",
         "@pigweed//pw_boot",
         "@pigweed//pw_sys_io",
-        "@pigweed//targets:pw_assert_backend_impl",
     ] + select({
         "@platforms//cpu:armv7e-m": [
             "@pigweed//pw_toolchain/arm_gcc:arm_none_eabi_gcc_support",
