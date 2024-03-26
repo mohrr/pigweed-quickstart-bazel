@@ -6,7 +6,7 @@ It's an echo application for the STM32F429 Discovery Board.
 ## Cloning
 
 ```
-git clone --recursive https://pigweed.googlesource.com/example/echo
+git clone --recursive https://pigweed.googlesource.com/pigweed/quickstart/bazel
 ```
 
 If you already cloned but forgot to include `--recursive`, run `git submodule
