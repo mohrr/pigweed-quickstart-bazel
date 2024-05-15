@@ -1,6 +1,9 @@
 name: basic
-run-name: presubmit run triggered by ${{ github.actor }}
-on: [push]
+run-name: postsubmit run
+
+on:
+  push
+
 jobs:
   bazel-build-test:
     runs-on: ubuntu-latest
