@@ -65,6 +65,21 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
 
+# TODO(b/311746469): Switch back to a released version when possible.
+git_repository(
+    name = "rules_fuzzing",
+    commit = "67ba0264c46c173a75825f2ae0a0b4b9b17c5e59",
+    remote = "https://github.com/bazelbuild/rules_fuzzing",
+)
+
+load("@rules_fuzzing//fuzzing:repositories.bzl", "rules_fuzzing_dependencies")
+
+rules_fuzzing_dependencies()
+
+load("@rules_fuzzing//fuzzing:init.bzl", "rules_fuzzing_init")
+
+rules_fuzzing_init()
+
 # Add Pigweed itself, as a submodule.
 #
 # We use a submodule for simpler integration with our CI. You can use
