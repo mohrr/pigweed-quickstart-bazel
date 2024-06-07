@@ -80,22 +80,17 @@ load("@rules_fuzzing//fuzzing:init.bzl", "rules_fuzzing_init")
 
 rules_fuzzing_init()
 
-# Add Pigweed itself, as a submodule.
-#
-# We use a submodule for simpler integration with our CI. You can use
-# git_repository, too, for both pigweed and pw_toolchain (see
-# http://pwbug.dev/300695111).
-#
-# TODO: http://pwbug.dev/323009830 - Use git_repository here once we support it
-# in CI.
-local_repository(
+git_repository(
     name = "pigweed",
-    path = "third_party/pigweed",
+    commit = "243ba33cd5434c716fd6166e38f6bd606866f679",
+    remote = "https://pigweed.googlesource.com/pigweed/pigweed.git",
 )
 
-local_repository(
+git_repository(
     name = "pw_toolchain",
-    path = "third_party/pigweed/pw_toolchain_bazel",
+    commit = "243ba33cd5434c716fd6166e38f6bd606866f679",
+    remote = "https://pigweed.googlesource.com/pigweed/pigweed.git",
+    strip_prefix = "pw_toolchain_bazel",
 )
 
 # Get ready to grab CIPD dependencies. For this minimal example, the only
