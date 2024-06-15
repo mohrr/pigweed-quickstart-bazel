@@ -13,6 +13,11 @@
 # the License.
 load("//:echo.bzl", "stm32_cc_binary")
 
+load(
+    "@pigweed//pw_build:pigweed.bzl",
+    "pw_cc_test",
+)
+
 package(default_visibility = ["//visibility:public"])
 
 cc_binary(
@@ -39,4 +44,26 @@ cc_binary(
 stm32_cc_binary(
     name = "echo.elf",
     binary = ":echo",
+)
+
+cc_library(
+    name = "multiply",
+    hdrs = ["multiply.h"],
+    srcs = ["multiply.cc"],
+)
+
+# Note: Must use pw_cc_test instead of cc_test to enable on-device execution.
+# See http://pigweed.dev/bazel#pw_cc_test for more details.
+pw_cc_test(
+    name = "multiply_test",
+    srcs = ["multiply_test.cc"],
+    deps = [
+        ":multiply",
+    ]
+)
+
+stm32_cc_binary(
+    name = "multiply_test.elf",
+    binary = ":multiply_test",
+    testonly = True,
 )

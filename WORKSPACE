@@ -65,22 +65,38 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
 
-# Add Pigweed itself, as a submodule.
-#
-# We use a submodule for simpler integration with our CI. You can use
-# git_repository, too, for both pigweed and pw_toolchain (see
-# http://pwbug.dev/300695111).
-#
-# TODO: http://pwbug.dev/323009830 - Use git_repository here once we support it
-# in CI.
-local_repository(
-    name = "pigweed",
-    path = "third_party/pigweed",
+# TODO(b/311746469): Switch back to a released version when possible.
+git_repository(
+    name = "rules_fuzzing",
+    commit = "67ba0264c46c173a75825f2ae0a0b4b9b17c5e59",
+    remote = "https://github.com/bazelbuild/rules_fuzzing",
 )
 
-local_repository(
+load("@rules_fuzzing//fuzzing:repositories.bzl", "rules_fuzzing_dependencies")
+
+rules_fuzzing_dependencies()
+
+load("@rules_fuzzing//fuzzing:init.bzl", "rules_fuzzing_init")
+
+rules_fuzzing_init()
+
+git_repository(
+    name = "pigweed",
+    # ROLL: Warning: this entry is automatically updated.
+    # ROLL: Last updated 2024-06-15.
+    # ROLL: By https://cr-buildbucket.appspot.com/build/8745109343828874705.
+    commit = "7e33056fe5871aa82580bf1484477a67ecdeca28",
+    remote = "https://pigweed.googlesource.com/pigweed/pigweed.git",
+)
+
+git_repository(
     name = "pw_toolchain",
-    path = "third_party/pigweed/pw_toolchain_bazel",
+    # ROLL: Warning: this entry is automatically updated.
+    # ROLL: Last updated 2024-06-15.
+    # ROLL: By https://cr-buildbucket.appspot.com/build/8745109343828874705.
+    commit = "7e33056fe5871aa82580bf1484477a67ecdeca28",
+    remote = "https://pigweed.googlesource.com/pigweed/pigweed.git",
+    strip_prefix = "pw_toolchain_bazel",
 )
 
 # Get ready to grab CIPD dependencies. For this minimal example, the only
